@@ -7,7 +7,8 @@
       "name": "top_level",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2021.1"
+      "tool_version": "2021.1",
+      "validated": "true"
     },
     "design_tree": {
       "pcie": {
@@ -32,7 +33,17 @@
       "pcie_refclk": {
         "mode": "Slave",
         "vlnv_bus_definition": "xilinx.com:interface:diff_clock:1.0",
-        "vlnv": "xilinx.com:interface:diff_clock_rtl:1.0"
+        "vlnv": "xilinx.com:interface:diff_clock_rtl:1.0",
+        "parameters": {
+          "CAN_DEBUG": {
+            "value": "false",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          }
+        }
       },
       "pcie_mgt": {
         "mode": "Master",
@@ -1632,10 +1643,10 @@
                 "value": "2048"
               },
               "C_MON_TYPE": {
-                "value": "INTERFACE"
+                "value": "MIX"
               },
               "C_NUM_OF_PROBES": {
-                "value": "8"
+                "value": "2"
               }
             },
             "interface_ports": {
@@ -1693,6 +1704,14 @@
                   "HAS_TLAST": {
                     "value": "0",
                     "value_src": "constant"
+                  },
+                  "FREQ_HZ": {
+                    "value": "250000000",
+                    "value_src": "user_prop"
+                  },
+                  "CLK_DOMAIN": {
+                    "value": "top_level_xdma_0_1_axi_aclk",
+                    "value_src": "default_prop"
                   }
                 },
                 "port_maps": {
@@ -1748,6 +1767,14 @@
                   "HAS_TLAST": {
                     "value": "0",
                     "value_src": "constant"
+                  },
+                  "FREQ_HZ": {
+                    "value": "250000000",
+                    "value_src": "user_prop"
+                  },
+                  "CLK_DOMAIN": {
+                    "value": "top_level_xdma_0_1_axi_aclk",
+                    "value_src": "default_prop"
                   }
                 },
                 "port_maps": {
@@ -1779,6 +1806,10 @@
                   "PROTOCOL": {
                     "value": "AXI4",
                     "value_src": "constant"
+                  },
+                  "FREQ_HZ": {
+                    "value": "250000000",
+                    "value_src": "user_prop"
                   },
                   "ID_WIDTH": {
                     "value": "4",
@@ -1863,6 +1894,10 @@
                   "MAX_BURST_LENGTH": {
                     "value": "256",
                     "value_src": "auto"
+                  },
+                  "CLK_DOMAIN": {
+                    "value": "top_level_xdma_0_1_axi_aclk",
+                    "value_src": "default_prop"
                   }
                 },
                 "address_space_ref": "M_AXI",
@@ -2063,6 +2098,14 @@
                   "ASSOCIATED_RESET": {
                     "value": "resetn",
                     "value_src": "constant"
+                  },
+                  "FREQ_HZ": {
+                    "value": "250000000",
+                    "value_src": "user_prop"
+                  },
+                  "CLK_DOMAIN": {
+                    "value": "top_level_xdma_0_1_axi_aclk",
+                    "value_src": "default_prop"
                   }
                 }
               },
@@ -2274,6 +2317,18 @@
             "ports": [
               "ldp_emu_config/sensor_hdr_enable",
               "stamp_sensor_hdr/enable"
+            ]
+          },
+          "ldp_manager_max_frame_cycles": {
+            "ports": [
+              "ldp_manager/max_frame_cycles",
+              "system_ila/probe0"
+            ]
+          },
+          "ldp_manager_min_frame_cycles": {
+            "ports": [
+              "ldp_manager/min_frame_cycles",
+              "system_ila/probe1"
             ]
           },
           "mindy_core_reset_external_resetn": {

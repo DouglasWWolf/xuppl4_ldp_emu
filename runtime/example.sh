@@ -57,7 +57,7 @@ echo "ldp_emu RTL version" $(get_rtl_version)
 idle_system
 
 # This should be "set_continuous_mode" or "set_nshot_mode"
-set_nshot_mode 1
+set_nshot_mode 1000
 
 # Set the output data rate in bytes-per-microsecond. 
 set_rate_limit 20000
