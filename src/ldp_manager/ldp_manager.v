@@ -7,7 +7,7 @@
 // 05-Jun-24  DWW     1  Initial creation
 //=============================================================================
 
-/*
+/* 
 
    This module takes as its primary input two streams: one of frame-data and
    one of meta-data.
@@ -173,33 +173,6 @@ wire issue_aw_requests  = (resetn == 1) & (wsm_state == WSM_WAIT_FIRST_FD) & axi
 
 // We're always ready for write-acknowledgements
 assign M_AXI_BREADY = 1;
-
-// The number of write transactions requested and acknowledged
-reg[63:0] writes_reqd, writes_ackd;
-
-
-//==============================================================================
-// This counts the number of write-requests emitted on the AW-channel
-//==============================================================================
-always @(posedge clk) begin
-    if (resetn == 0)
-        writes_reqd <= 0;
-    else if (M_AXI_AWVALID & M_AXI_AWREADY)
-        writes_reqd <= writes_reqd + 1;
-end
-//==============================================================================
-
-//==============================================================================
-// This counts the number of write-requests acknowled by the slave side
-//==============================================================================
-always @(posedge clk) begin
-    if (resetn == 0)
-        writes_ackd <= 0;
-    else if (M_AXI_BVALID & M_AXI_BREADY)
-        writes_ackd <= writes_ackd + 1;
-end
-//==============================================================================
-
 
 
 //==============================================================================
