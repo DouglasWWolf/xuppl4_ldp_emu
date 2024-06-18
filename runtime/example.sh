@@ -68,15 +68,15 @@ set_frame_size 0x40_0000
 # Define the location and size of the frame-data ring buffers
 set_fd0_ring_addr 0x1_0000_0000
 set_fd1_ring_addr 0x1_1000_0000
-set_fd_ring_size  0x0_1000_0000
+set_fd_ring_size  0x0_0080_0000
 
 # Define the location and size of the meta-data ring buffers
 set_md0_ring_addr 0x1_2000_0000
 set_md1_ring_addr 0x1_3000_0000
-set_md_ring_size  0x0_1000_0000
+set_md_ring_size  512
 
 # Define the address where the frame counters live in host-RAM
-set_frame_counter_addr 0x1_4000_000
+set_frame_counter_addr 0x1_4000_0000
 
 # Set the 64-byte fixed portion of the metacommand
 set_metadata  0 0x01020304
@@ -101,6 +101,11 @@ clear_fifo both
 
 # Load frame data into the first FIFO
 load_fifo_imm 1 0x11111111
+load_fifo_imm 1 0x22222222
+load_fifo_imm 1 0x33333333
+load_fifo_imm 1 0x44444444
+load_fifo_imm 1 0x55555555
+
 
 # Start generating frames from the data we just loaded
 start_fifo 1

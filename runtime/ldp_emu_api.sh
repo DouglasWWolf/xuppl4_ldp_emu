@@ -39,7 +39,7 @@ MC_BASE=0x2000
 
          REG_FC_ADDRH=$((MC_BASE + 14 *4))
          REG_FC_ADDRL=$((MC_BASE + 15 *4))
-         REG_METADATA=$((MC_BASE + 16 *4))
+         REG_METADATA=$((MC_BASE + 32 *4))
 
 #==============================================================================
 

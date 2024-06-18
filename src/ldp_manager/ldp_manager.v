@@ -34,7 +34,6 @@ module ldp_manager # (parameter DW=512, AW=64)
 (
     input   clk, resetn,
 
-
     // This is the size of a data-frame, in bytes
     input[31:0]     FRAME_SIZE,
     
@@ -172,11 +171,36 @@ wire first_cycle_of_frame = (resetn == 1) & (wsm_state == WSM_WAIT_FIRST_FD) & M
 // This determines when we will start issuing transactions in the AW-channel of M_AXI
 wire issue_aw_requests  = (resetn == 1) & (wsm_state == WSM_WAIT_FIRST_FD) & axis_fd_tvalid;
 
-// This is the number of frame-data cycles seen so far
-reg[31:0] fd_cycle_count;
-
 // We're always ready for write-acknowledgements
 assign M_AXI_BREADY = 1;
+
+// The number of write transactions requested and acknowledged
+reg[63:0] writes_reqd, writes_ackd;
+
+
+//==============================================================================
+// This counts the number of write-requests emitted on the AW-channel
+//==============================================================================
+always @(posedge clk) begin
+    if (resetn == 0)
+        writes_reqd <= 0;
+    else if (M_AXI_AWVALID & M_AXI_AWREADY)
+        writes_reqd <= writes_reqd + 1;
+end
+//==============================================================================
+
+//==============================================================================
+// This counts the number of write-requests acknowled by the slave side
+//==============================================================================
+always @(posedge clk) begin
+    if (resetn == 0)
+        writes_ackd <= 0;
+    else if (M_AXI_BVALID & M_AXI_BREADY)
+        writes_ackd <= writes_ackd + 1;
+end
+//==============================================================================
+
+
 
 //==============================================================================
 // Whenever "first_cycle_of_frame" strobes high, this state machine will read in 
@@ -224,11 +248,11 @@ end
 function [63:0] next_fd_offset
 (
     input[63:0] current_offset,
-    input[63:0] max_offset    
+    input[63:0] buffer_size    
 );
 begin
     next_fd_offset = current_offset + BYTES_PER_FD_BURST;
-    if (next_fd_offset > max_offset) next_fd_offset = 0;
+    if (next_fd_offset >= buffer_size) next_fd_offset = 0;
 end
 endfunction
 //==============================================================================
@@ -241,11 +265,11 @@ endfunction
 function [63:0] next_md_offset
 (
     input[63:0] current_offset,
-    input[63:0] max_offset    
+    input[63:0] buffer_size
 );
 begin
     next_md_offset = current_offset + BYTES_PER_MD_BURST;
-    if (next_md_offset > max_offset) next_md_offset = 0;
+    if (next_md_offset >= buffer_size) next_md_offset = 0;
 end
 endfunction
 //==============================================================================
@@ -283,7 +307,7 @@ wire inc_md_pointer = (resetn == 1)
 // bursts are written to frame-data-ring0, then next N bursts are written to
 // frame-data-ring1, the next N bursts are written to frame-data-ring0, etc.
 //
-// The address where frame-data should be written in stored in "fd_address"
+// The address where frame-data should be written in stored in "fd<n>_address"
 //==============================================================================
 // The offset (from the ring-buffer base address) of the next place we will
 // write frame data
@@ -636,7 +660,7 @@ always @(posedge clk) begin
             if (M_AXI_WVALID & M_AXI_WREADY) begin
                 beat <= beat + 1;
                 if (M_AXI_WLAST) begin
-                    beat <= 0;
+                    beat <= 1;
                     if (w_fd_burst == FD_BURSTS_PER_FRAME)
                         wsm_state  <= WSM_WRITE_MD00;
                     else
@@ -673,7 +697,5 @@ always @(posedge clk) begin
 
 end
 //==============================================================================
-
-
 
 endmodule

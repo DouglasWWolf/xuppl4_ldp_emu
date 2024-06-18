@@ -12,8 +12,8 @@
     "design_tree": {
       "pcie": {
         "bridge_input_clock": "",
-        "pcie_bridge": "",
-        "one": ""
+        "one": "",
+        "pcie_bridge": ""
       },
       "laguna_dp_emulator": {
         "metadata_gen": "",
@@ -21,12 +21,11 @@
         "simframe_gen": "",
         "simframe_ctl": "",
         "stamp_sensor_hdr": "",
-        "system_ila_0": "",
         "ldp_emu_config": "",
+        "system_ila": "",
         "ldp_manager": ""
       },
       "smartconnect": "",
-      "pcie_ila": "",
       "axi_revision": ""
     },
     "interface_ports": {
@@ -49,16 +48,6 @@
             "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0"
           },
-          "S_AXI_LITE": {
-            "mode": "Slave",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0"
-          },
-          "pcie_mgt": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:pcie_7x_mgt:1.0",
-            "vlnv": "xilinx.com:interface:pcie_7x_mgt_rtl:1.0"
-          },
           "pcie_refclk": {
             "mode": "Slave",
             "vlnv_bus_definition": "xilinx.com:interface:diff_clock:1.0",
@@ -68,6 +57,11 @@
             "mode": "Slave",
             "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
             "vlnv": "xilinx.com:interface:aximm_rtl:1.0"
+          },
+          "pcie_mgt": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:pcie_7x_mgt:1.0",
+            "vlnv": "xilinx.com:interface:pcie_7x_mgt_rtl:1.0"
           }
         },
         "ports": {
@@ -91,10 +85,16 @@
               }
             }
           },
+          "one": {
+            "vlnv": "xilinx.com:ip:xlconstant:1.1",
+            "xci_name": "top_level_xlconstant_0_0",
+            "xci_path": "ip/top_level_xlconstant_0_0/top_level_xlconstant_0_0.xci",
+            "inst_hier_path": "pcie/one"
+          },
           "pcie_bridge": {
             "vlnv": "xilinx.com:ip:xdma:4.1",
-            "xci_name": "top_level_xdma_0_0",
-            "xci_path": "ip/top_level_xdma_0_0/top_level_xdma_0_0.xci",
+            "xci_name": "top_level_xdma_0_1",
+            "xci_path": "ip/top_level_xdma_0_1/top_level_xdma_0_1.xci",
             "inst_hier_path": "pcie/pcie_bridge",
             "parameters": {
               "PF0_DEVICE_ID_mqdma": {
@@ -121,28 +121,25 @@
               "bridge_burst": {
                 "value": "true"
               },
-              "dma_reset_source_sel": {
-                "value": "User_Reset"
-              },
-              "en_axi_slave_if": {
-                "value": "true"
-              },
-              "enable_jtag_dbg": {
-                "value": "false"
-              },
               "functional_mode": {
                 "value": "AXI_Bridge"
               },
               "mode_selection": {
                 "value": "Advanced"
               },
-              "pcie_blk_locn": {
-                "value": "X1Y0"
-              },
               "pf0_bar0_scale": {
                 "value": "Megabytes"
               },
               "pf0_bar0_size": {
+                "value": "1"
+              },
+              "pf0_bar1_enabled": {
+                "value": "true"
+              },
+              "pf0_bar1_scale": {
+                "value": "Megabytes"
+              },
+              "pf0_bar1_size": {
                 "value": "1"
               },
               "pf0_device_id": {
@@ -219,12 +216,6 @@
                 }
               }
             }
-          },
-          "one": {
-            "vlnv": "xilinx.com:ip:xlconstant:1.1",
-            "xci_name": "top_level_xlconstant_0_0",
-            "xci_path": "ip/top_level_xlconstant_0_0/top_level_xlconstant_0_0.xci",
-            "inst_hier_path": "pcie/one"
           }
         },
         "interface_nets": {
@@ -234,28 +225,22 @@
               "bridge_input_clock/CLK_IN_D"
             ]
           },
+          "Conn2": {
+            "interface_ports": [
+              "pcie_mgt",
+              "pcie_bridge/pcie_mgt"
+            ]
+          },
           "S_AXI_B_1": {
             "interface_ports": [
               "S_AXI_B",
               "pcie_bridge/S_AXI_B"
             ]
           },
-          "smartconnect_0_M01_AXI": {
-            "interface_ports": [
-              "S_AXI_LITE",
-              "pcie_bridge/S_AXI_LITE"
-            ]
-          },
-          "xdma_0_M_AXI_B": {
+          "pcie_bridge_M_AXI_B": {
             "interface_ports": [
               "M_AXI_B",
               "pcie_bridge/M_AXI_B"
-            ]
-          },
-          "xdma_0_pcie_mgt": {
-            "interface_ports": [
-              "pcie_mgt",
-              "pcie_bridge/pcie_mgt"
             ]
           }
         },
@@ -278,16 +263,16 @@
               "pcie_bridge/sys_rst_n"
             ]
           },
+          "pcie_bridge_axi_aclk": {
+            "ports": [
+              "pcie_bridge/axi_aclk",
+              "axi_aclk"
+            ]
+          },
           "pcie_bridge_axi_aresetn": {
             "ports": [
               "pcie_bridge/axi_aresetn",
               "axi_aresetn"
-            ]
-          },
-          "xdma_0_axi_aclk": {
-            "ports": [
-              "pcie_bridge/axi_aclk",
-              "axi_aclk"
             ]
           }
         }
@@ -372,7 +357,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -412,7 +397,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 }
@@ -490,7 +475,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -563,7 +548,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -613,7 +598,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 }
@@ -688,7 +673,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -751,7 +736,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -795,7 +780,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 }
@@ -873,7 +858,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -996,7 +981,7 @@
                     "value_src": "auto"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   },
                   "RUSER_BITS_PER_BYTE": {
@@ -1112,7 +1097,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 }
@@ -1185,7 +1170,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -1248,7 +1233,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 },
@@ -1288,7 +1273,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 }
@@ -1318,57 +1303,6 @@
               },
               "start_of_frame": {
                 "direction": "I"
-              }
-            }
-          },
-          "system_ila_0": {
-            "vlnv": "xilinx.com:ip:system_ila:1.1",
-            "xci_name": "top_level_system_ila_0_1",
-            "xci_path": "ip/top_level_system_ila_0_1/top_level_system_ila_0_1.xci",
-            "inst_hier_path": "laguna_dp_emulator/system_ila_0",
-            "parameters": {
-              "C_MON_TYPE": {
-                "value": "MIX"
-              },
-              "C_NUM_MONITOR_SLOTS": {
-                "value": "4"
-              },
-              "C_SLOT": {
-                "value": "2"
-              },
-              "C_SLOT_0_INTF_TYPE": {
-                "value": "xilinx.com:interface:axis_rtl:1.0"
-              },
-              "C_SLOT_1_INTF_TYPE": {
-                "value": "xilinx.com:interface:axis_rtl:1.0"
-              },
-              "C_SLOT_2_INTF_TYPE": {
-                "value": "xilinx.com:interface:axis_rtl:1.0"
-              },
-              "C_SLOT_3_INTF_TYPE": {
-                "value": "xilinx.com:interface:axis_rtl:1.0"
-              }
-            },
-            "interface_ports": {
-              "SLOT_0_AXIS": {
-                "mode": "Monitor",
-                "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
-                "vlnv": "xilinx.com:interface:axis_rtl:1.0"
-              },
-              "SLOT_1_AXIS": {
-                "mode": "Monitor",
-                "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
-                "vlnv": "xilinx.com:interface:axis_rtl:1.0"
-              },
-              "SLOT_2_AXIS": {
-                "mode": "Monitor",
-                "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
-                "vlnv": "xilinx.com:interface:axis_rtl:1.0"
-              },
-              "SLOT_3_AXIS": {
-                "mode": "Monitor",
-                "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
-                "vlnv": "xilinx.com:interface:axis_rtl:1.0"
               }
             }
           },
@@ -1485,7 +1419,7 @@
                     "value_src": "auto"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   },
                   "RUSER_BITS_PER_BYTE": {
@@ -1613,7 +1547,7 @@
                     "value_src": "user_prop"
                   },
                   "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_0_axi_aclk",
+                    "value": "top_level_xdma_0_1_axi_aclk",
                     "value_src": "default_prop"
                   }
                 }
@@ -1685,6 +1619,30 @@
               },
               "sensor_hdr_enable": {
                 "direction": "O"
+              }
+            }
+          },
+          "system_ila": {
+            "vlnv": "xilinx.com:ip:system_ila:1.1",
+            "xci_name": "top_level_system_ila_0_1",
+            "xci_path": "ip/top_level_system_ila_0_1/top_level_system_ila_0_1.xci",
+            "inst_hier_path": "laguna_dp_emulator/system_ila",
+            "parameters": {
+              "C_DATA_DEPTH": {
+                "value": "2048"
+              },
+              "C_MON_TYPE": {
+                "value": "INTERFACE"
+              },
+              "C_NUM_OF_PROBES": {
+                "value": "8"
+              }
+            },
+            "interface_ports": {
+              "SLOT_0_AXI": {
+                "mode": "Monitor",
+                "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
+                "vlnv": "xilinx.com:interface:aximm_rtl:1.0"
               }
             }
           },
@@ -2195,7 +2153,8 @@
           "ldp_manager_M_AXI": {
             "interface_ports": [
               "M_AXI",
-              "ldp_manager/M_AXI"
+              "ldp_manager/M_AXI",
+              "system_ila/SLOT_0_AXI"
             ]
           },
           "metadata_gen_AXIS_MD": {
@@ -2207,29 +2166,25 @@
           "rate_limiter_AXIS_OUT": {
             "interface_ports": [
               "ldp_manager/axis_fd",
-              "rate_limiter/AXIS_OUT",
-              "system_ila_0/SLOT_3_AXIS"
+              "rate_limiter/AXIS_OUT"
             ]
           },
           "simframe_ctl_AXIS_OUT": {
             "interface_ports": [
               "simframe_ctl/AXIS_OUT",
-              "simframe_gen/AXIS_IN",
-              "system_ila_0/SLOT_0_AXIS"
+              "simframe_gen/AXIS_IN"
             ]
           },
           "simframe_gen_AXIS_OUT": {
             "interface_ports": [
               "stamp_sensor_hdr/AXIS_IN",
-              "simframe_gen/AXIS_OUT",
-              "system_ila_0/SLOT_1_AXIS"
+              "simframe_gen/AXIS_OUT"
             ]
           },
           "stamp_sensor_hdr_AXIS_OUT": {
             "interface_ports": [
               "stamp_sensor_hdr/AXIS_OUT",
-              "rate_limiter/AXIS_IN",
-              "system_ila_0/SLOT_2_AXIS"
+              "rate_limiter/AXIS_IN"
             ]
           }
         },
@@ -2242,8 +2197,8 @@
               "simframe_gen/clk",
               "simframe_ctl/clk",
               "stamp_sensor_hdr/clk",
-              "system_ila_0/clk",
               "ldp_emu_config/clk",
+              "system_ila/clk",
               "ldp_manager/clk"
             ]
           },
@@ -2328,7 +2283,6 @@
               "rate_limiter/resetn",
               "simframe_gen/resetn",
               "stamp_sensor_hdr/resetn",
-              "system_ila_0/probe0",
               "ldp_manager/resetn"
             ]
           },
@@ -2358,7 +2312,7 @@
             "value": "1"
           },
           "NUM_MI": {
-            "value": "4"
+            "value": "3"
           },
           "NUM_SI": {
             "value": "1"
@@ -2380,8 +2334,7 @@
             "bridges": [
               "M00_AXI",
               "M01_AXI",
-              "M02_AXI",
-              "M03_AXI"
+              "M02_AXI"
             ]
           },
           "M00_AXI": {
@@ -2458,44 +2411,6 @@
                 "value": "0"
               }
             }
-          },
-          "M03_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "MAX_BURST_LENGTH": {
-                "value": "1"
-              },
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "32"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "SUPPORTS_NARROW_BURST": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            }
-          }
-        }
-      },
-      "pcie_ila": {
-        "vlnv": "xilinx.com:ip:system_ila:1.1",
-        "xci_name": "top_level_system_ila_0_0",
-        "xci_path": "ip/top_level_system_ila_0_0/top_level_system_ila_0_0.xci",
-        "inst_hier_path": "pcie_ila",
-        "interface_ports": {
-          "SLOT_0_AXI": {
-            "mode": "Monitor",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0"
           }
         }
       },
@@ -2612,7 +2527,7 @@
                 "value_src": "auto"
               },
               "CLK_DOMAIN": {
-                "value": "top_level_xdma_0_0_axi_aclk",
+                "value": "top_level_xdma_0_1_axi_aclk",
                 "value_src": "default_prop"
               },
               "RUSER_BITS_PER_BYTE": {
@@ -2740,7 +2655,7 @@
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
-                "value": "top_level_xdma_0_0_axi_aclk",
+                "value": "top_level_xdma_0_1_axi_aclk",
                 "value_src": "default_prop"
               }
             }
@@ -2759,17 +2674,10 @@
       }
     },
     "interface_nets": {
-      "S_AXI_SF_CTL_1": {
-        "interface_ports": [
-          "laguna_dp_emulator/S_AXI_SF_CTL",
-          "smartconnect/M03_AXI"
-        ]
-      },
       "laguna_dp_emulator_M_AXI": {
         "interface_ports": [
           "laguna_dp_emulator/M_AXI",
-          "pcie/S_AXI_B",
-          "pcie_ila/SLOT_0_AXI"
+          "pcie/S_AXI_B"
         ]
       },
       "pcie_refclk_1": {
@@ -2778,16 +2686,16 @@
           "pcie/pcie_refclk"
         ]
       },
-      "smartconnect_0_M01_AXI": {
-        "interface_ports": [
-          "pcie/S_AXI_LITE",
-          "smartconnect/M01_AXI"
-        ]
-      },
       "smartconnect_M00_AXI": {
         "interface_ports": [
           "smartconnect/M00_AXI",
           "laguna_dp_emulator/S_AXI_CONFIG"
+        ]
+      },
+      "smartconnect_M01_AXI": {
+        "interface_ports": [
+          "smartconnect/M01_AXI",
+          "laguna_dp_emulator/S_AXI_SF_CTL"
         ]
       },
       "smartconnect_M02_AXI": {
@@ -2815,7 +2723,6 @@
           "pcie/axi_aclk",
           "smartconnect/aclk",
           "laguna_dp_emulator/clk",
-          "pcie_ila/clk",
           "axi_revision/AXI_ACLK"
         ]
       },
@@ -2847,11 +2754,6 @@
                 "address_block": "/laguna_dp_emulator/simframe_ctl/S_AXI/reg0",
                 "offset": "0x0000000000001000",
                 "range": "256"
-              },
-              "SEG_xdma_0_CTL0": {
-                "address_block": "/pcie/pcie_bridge/S_AXI_LITE/CTL0",
-                "offset": "0x0000000010000000",
-                "range": "64K"
               }
             }
           }
