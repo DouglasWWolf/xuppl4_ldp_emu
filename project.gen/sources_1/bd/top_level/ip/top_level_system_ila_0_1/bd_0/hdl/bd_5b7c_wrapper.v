@@ -47,6 +47,7 @@ module bd_5b7c_wrapper
     clk,
     probe0,
     probe1,
+    probe2,
     resetn);
   input [63:0]SLOT_0_AXI_araddr;
   input [1:0]SLOT_0_AXI_arburst;
@@ -88,6 +89,7 @@ module bd_5b7c_wrapper
   input clk;
   input [31:0]probe0;
   input [31:0]probe1;
+  input [0:0]probe2;
   input resetn;
 
   wire [63:0]SLOT_0_AXI_araddr;
@@ -130,6 +132,7 @@ module bd_5b7c_wrapper
   wire clk;
   wire [31:0]probe0;
   wire [31:0]probe1;
+  wire [0:0]probe2;
   wire resetn;
 
   bd_5b7c bd_5b7c_i
@@ -173,5 +176,6 @@ module bd_5b7c_wrapper
         .clk(clk),
         .probe0(probe0),
         .probe1(probe1),
+        .probe2(probe2),
         .resetn(resetn));
 endmodule

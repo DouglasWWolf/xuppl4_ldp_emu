@@ -9,8 +9,8 @@
 #  -string -flagsOSRD
 preplace port pcie_refclk -pg 1 -lvl 0 -x 0 -y 80 -defaultsOSRD
 preplace port pcie_mgt -pg 1 -lvl 0 -x 0 -y 60 -defaultsOSRD -left
-preplace inst pcie -pg 1 -lvl 1 -x 150 -y 60 -swap {39 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 68 37 38 0 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 36 69 70 71 72 73 74} -defaultsOSRD -pinDir M_AXI_B right -pinY M_AXI_B 80R -pinDir pcie_refclk left -pinY pcie_refclk 20L -pinDir S_AXI_B right -pinY S_AXI_B 0R -pinDir pcie_mgt left -pinY pcie_mgt 0L -pinDir axi_aclk right -pinY axi_aclk 100R -pinDir axi_aresetn right -pinY axi_aresetn 230R
-preplace inst laguna_dp_emulator -pg 1 -lvl 3 -x 690 -y 60 -swap {38 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 0 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76} -defaultsOSRD -pinDir S_AXI_CONFIG left -pinY S_AXI_CONFIG 100L -pinDir S_AXI_SF_CTL left -pinY S_AXI_SF_CTL 80L -pinDir M_AXI left -pinY M_AXI 0L -pinDir clk left -pinY clk 120L -pinDir resetn left -pinY resetn 140L
+preplace inst pcie -pg 1 -lvl 1 -x 150 -y 60 -swap {39 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 69 37 38 0 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 36 70 71 72 73 74 75} -defaultsOSRD -pinDir M_AXI_B right -pinY M_AXI_B 80R -pinDir pcie_refclk left -pinY pcie_refclk 20L -pinDir S_AXI_B right -pinY S_AXI_B 0R -pinDir pcie_mgt left -pinY pcie_mgt 0L -pinDir axi_aclk right -pinY axi_aclk 100R -pinDir axi_aresetn right -pinY axi_aresetn 230R
+preplace inst laguna_dp_emulator -pg 1 -lvl 3 -x 690 -y 60 -swap {38 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 0 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77} -defaultsOSRD -pinDir S_AXI_CONFIG left -pinY S_AXI_CONFIG 100L -pinDir S_AXI_SF_CTL left -pinY S_AXI_SF_CTL 80L -pinDir M_AXI left -pinY M_AXI 0L -pinDir clk left -pinY clk 120L -pinDir resetn left -pinY resetn 140L
 preplace inst smartconnect -pg 1 -lvl 2 -x 420 -y 140 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 58 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 38 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99} -defaultsOSRD -pinDir S00_AXI left -pinY S00_AXI 0L -pinDir M00_AXI right -pinY M00_AXI 20R -pinDir M01_AXI right -pinY M01_AXI 0R -pinDir M02_AXI right -pinY M02_AXI 150R -pinDir aclk left -pinY aclk 20L -pinDir aresetn left -pinY aresetn 150L
 preplace inst axi_revision -pg 1 -lvl 3 -x 690 -y 290 -defaultsOSRD -pinDir S_AXI left -pinY S_AXI 0L -pinDir AXI_ACLK left -pinY AXI_ACLK 20L -pinDir AXI_ARESETN left -pinY AXI_ARESETN 40L
 preplace netloc pcie_axi_aclk 1 1 2 280 80 560
@@ -26,7 +26,7 @@ levelinfo -pg 1 0 150 420 690 800
 pagesize -pg 1 -db -bbox -sgen -130 0 800 390
 ",
    "No Loops_ScaleFactor":"1.0",
-   "No Loops_TopLeft":"-422,-132",
+   "No Loops_TopLeft":"-393,-152",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
 preplace port clk_200mhz -pg 1 -lvl 0 -x 0 -y 60 -defaultsOSRD

@@ -7,8 +7,7 @@
       "name": "top_level",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2021.1",
-      "validated": "true"
+      "tool_version": "2021.1"
     },
     "design_tree": {
       "pcie": {
@@ -33,17 +32,7 @@
       "pcie_refclk": {
         "mode": "Slave",
         "vlnv_bus_definition": "xilinx.com:interface:diff_clock:1.0",
-        "vlnv": "xilinx.com:interface:diff_clock_rtl:1.0",
-        "parameters": {
-          "CAN_DEBUG": {
-            "value": "false",
-            "value_src": "default"
-          },
-          "FREQ_HZ": {
-            "value": "100000000",
-            "value_src": "default"
-          }
-        }
+        "vlnv": "xilinx.com:interface:diff_clock_rtl:1.0"
       },
       "pcie_mgt": {
         "mode": "Master",
@@ -1646,7 +1635,7 @@
                 "value": "MIX"
               },
               "C_NUM_OF_PROBES": {
-                "value": "2"
+                "value": "3"
               }
             },
             "interface_ports": {
@@ -1704,14 +1693,6 @@
                   "HAS_TLAST": {
                     "value": "0",
                     "value_src": "constant"
-                  },
-                  "FREQ_HZ": {
-                    "value": "250000000",
-                    "value_src": "user_prop"
-                  },
-                  "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_1_axi_aclk",
-                    "value_src": "default_prop"
                   }
                 },
                 "port_maps": {
@@ -1767,14 +1748,6 @@
                   "HAS_TLAST": {
                     "value": "0",
                     "value_src": "constant"
-                  },
-                  "FREQ_HZ": {
-                    "value": "250000000",
-                    "value_src": "user_prop"
-                  },
-                  "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_1_axi_aclk",
-                    "value_src": "default_prop"
                   }
                 },
                 "port_maps": {
@@ -1806,10 +1779,6 @@
                   "PROTOCOL": {
                     "value": "AXI4",
                     "value_src": "constant"
-                  },
-                  "FREQ_HZ": {
-                    "value": "250000000",
-                    "value_src": "user_prop"
                   },
                   "ID_WIDTH": {
                     "value": "4",
@@ -1894,10 +1863,6 @@
                   "MAX_BURST_LENGTH": {
                     "value": "256",
                     "value_src": "auto"
-                  },
-                  "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_1_axi_aclk",
-                    "value_src": "default_prop"
                   }
                 },
                 "address_space_ref": "M_AXI",
@@ -2023,6 +1988,12 @@
                     "left": "7",
                     "right": "0"
                   },
+                  "ARSIZE": {
+                    "physical_name": "M_AXI_ARSIZE",
+                    "direction": "O",
+                    "left": "2",
+                    "right": "0"
+                  },
                   "ARBURST": {
                     "physical_name": "M_AXI_ARBURST",
                     "direction": "O",
@@ -2098,14 +2069,6 @@
                   "ASSOCIATED_RESET": {
                     "value": "resetn",
                     "value_src": "constant"
-                  },
-                  "FREQ_HZ": {
-                    "value": "250000000",
-                    "value_src": "user_prop"
-                  },
-                  "CLK_DOMAIN": {
-                    "value": "top_level_xdma_0_1_axi_aclk",
-                    "value_src": "default_prop"
                   }
                 }
               },
@@ -2168,6 +2131,9 @@
                 "direction": "O",
                 "left": "31",
                 "right": "0"
+              },
+              "start_of_frame": {
+                "direction": "O"
               }
             },
             "addressing": {
@@ -2329,6 +2295,12 @@
             "ports": [
               "ldp_manager/min_frame_cycles",
               "system_ila/probe1"
+            ]
+          },
+          "ldp_manager_start_of_frame": {
+            "ports": [
+              "ldp_manager/start_of_frame",
+              "system_ila/probe2"
             ]
           },
           "mindy_core_reset_external_resetn": {
