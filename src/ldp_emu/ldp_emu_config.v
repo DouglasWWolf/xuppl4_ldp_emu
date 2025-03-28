@@ -23,7 +23,7 @@ module ldp_emu_config
 
     output reg[ 63:0] MD0_RING_ADDR, MD1_RING_ADDR, MD_RING_SIZE,
 
-    output reg[ 63:0] FC_ADDR,
+    output reg[ 63:0] FC0_ADDR, FC1_ADDR,
 
     output reg[511:0] METADATA,
 
@@ -86,8 +86,11 @@ localparam REG_MD1_RING_ADDRL = 11;
 localparam REG_MD_RING_SIZEH  = 12;
 localparam REG_MD_RING_SIZEL  = 13;
 
-localparam REG_FC_ADDRH       = 14;
-localparam REG_FC_ADDRL       = 15;
+localparam REG_FC0_ADDRH      = 14;
+localparam REG_FC0_ADDRL      = 15;
+localparam REG_FC1_ADDRH      = 16;
+localparam REG_FC1_ADDRL      = 17;
+
 
 localparam REG_METADATA_00    = 32;
 localparam REG_METADATA_01    = 33;
@@ -185,8 +188,11 @@ always @(posedge clk) begin
                     REG_MD_RING_SIZEH : MD_RING_SIZE [63:32] <= ashi_wdata;
                     REG_MD_RING_SIZEL : MD_RING_SIZE [31:00] <= ashi_wdata;
 
-                    REG_FC_ADDRH      : FC_ADDR      [63:32] <= ashi_wdata;
-                    REG_FC_ADDRL      : FC_ADDR      [31:00] <= ashi_wdata;
+                    REG_FC0_ADDRH     : FC0_ADDR     [63:32] <= ashi_wdata;
+                    REG_FC0_ADDRL     : FC0_ADDR     [31:00] <= ashi_wdata;
+                    REG_FC1_ADDRH     : FC1_ADDR     [63:32] <= ashi_wdata;
+                    REG_FC1_ADDRL     : FC1_ADDR     [31:00] <= ashi_wdata;
+
 
                     // Allow the user to store values into the "METADATA" field
                     REG_METADATA_00: METADATA[ 0 * 32 +: 32] <= ashi_wdata;
@@ -257,8 +263,11 @@ always @(posedge clk) begin
             REG_MD_RING_SIZEH : ashi_rdata <= MD_RING_SIZE [63:32];
             REG_MD_RING_SIZEL : ashi_rdata <= MD_RING_SIZE [31:00];
 
-            REG_FC_ADDRH      : ashi_rdata <= FC_ADDR      [63:32];
-            REG_FC_ADDRL      : ashi_rdata <= FC_ADDR      [31:00];
+            REG_FC0_ADDRH     : ashi_rdata <= FC0_ADDR     [63:32];
+            REG_FC0_ADDRL     : ashi_rdata <= FC0_ADDR     [31:00];
+            REG_FC1_ADDRH     : ashi_rdata <= FC1_ADDR     [63:32];
+            REG_FC1_ADDRL     : ashi_rdata <= FC1_ADDR     [31:00];
+
 
             REG_METADATA_00   : ashi_rdata <= METADATA[ 0 * 32 +: 32];
             REG_METADATA_01   : ashi_rdata <= METADATA[ 1 * 32 +: 32];

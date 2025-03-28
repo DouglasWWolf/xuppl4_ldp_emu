@@ -76,7 +76,7 @@ set_md1_ring_addr 0x1_3000_0000
 set_md_ring_size  512
 
 # Define the address where the frame counters live in host-RAM
-set_frame_counter_addr 0x1_4000_0000
+set_frame_counter_addresses 0x1_4000_0000 0x01_4100_0000
 
 # Set the 64-byte fixed portion of the metacommand
 set_metadata  0 0x01020304

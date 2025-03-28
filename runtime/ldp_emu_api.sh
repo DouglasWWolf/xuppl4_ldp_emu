@@ -37,8 +37,11 @@ MC_BASE=0x2000
     REG_MD_RING_SIZEH=$((MC_BASE + 12 *4))
     REG_MD_RING_SIZEL=$((MC_BASE + 13 *4))
 
-         REG_FC_ADDRH=$((MC_BASE + 14 *4))
-         REG_FC_ADDRL=$((MC_BASE + 15 *4))
+        REG_FC0_ADDRH=$((MC_BASE + 14 *4))
+        REG_FC0_ADDRL=$((MC_BASE + 15 *4))
+        REG_FC1_ADDRH=$((MC_BASE + 16 *4))
+        REG_FC1_ADDRL=$((MC_BASE + 17 *4))
+            
          REG_METADATA=$((MC_BASE + 32 *4))
 
 #==============================================================================
@@ -151,11 +154,12 @@ set_md_ring_size()
 
 
 #==============================================================================
-# This configures the address where the frame counter is stored
+# This configures the addresses where the frame counter is stored
 #==============================================================================
-set_frame_counter_addr()
+set_frame_counter_addresses()
 {
-    pcireg -wide $REG_FC_ADDRH $1
+    pcireg -wide $REG_FC0_ADDRH $1
+    pcireg -wide $REG_FC0_ADDRH $2    
 }
 #==============================================================================
 
