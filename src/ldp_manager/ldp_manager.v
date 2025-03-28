@@ -19,7 +19,7 @@
    one of meta-data.
 
    There are two host-RAM buffers for frame-data, two host-RAM buffers for 
-   meta-data, and a host-RAM buffer for two side-by-side frame-counters.
+   meta-data, and two host-RAM buffers frame-counters.
 
    Frame-data is "ping-ponged" between the two frame-data buffers, 16K at
    a time.   After a frame is written, the meta-data is written, with identical
